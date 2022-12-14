@@ -1,0 +1,48 @@
+@import '/src/styles/globals.scss';
+
+@keyframes dialogAnimation {
+  0% {
+    transform: translateY(90%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(100%);
+    opacity: 1;
+  }
+}
+.navigation{
+  &-dropdown{
+    &-btn{
+      cursor: pointer;
+      position: relative;
+    }
+    &-wrapper {
+      position: relative;
+      .count{
+        position: absolute;
+        top: 0;
+        right: -7px;
+        line-height: 1;
+        padding: $spacing * 0.25 $spacing * 0.5;
+        font-size: 12px;
+        border-radius: 50%;
+      }
+    }
+
+    &-content {
+      position: absolute;
+      z-index: 1;
+      right: 0;
+      bottom: 0;
+      width: max-content;
+      padding: $spacing * 0.5;
+      transform-origin: bottom right;
+      animation: dialogAnimation 0.5s;
+      border-radius: $radius;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      font-size: 12px;
+      animation-fill-mode: forwards;
+      }
+  }
+}

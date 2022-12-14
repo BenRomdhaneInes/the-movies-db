@@ -1,6 +1,7 @@
 import React from 'react';
 import Slider from "react-slick"
 import DetailsBox from '../details-box'
+import empty from '../../images/empty.gif'
 
 import './style.scss'
 const Carousel = ({items}) => {
@@ -16,9 +17,12 @@ const Carousel = ({items}) => {
     autoplay: true,
   }
   return(
+    items?.length > 0 ? (
     <Slider {...settings} className='carousel'>
       {items?.map((item, index) => <DetailsBox key={index} item={item}/>)}
     </Slider>
+    ) : <img src={empty}/>
+    
   )
 }
 

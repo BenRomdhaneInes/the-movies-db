@@ -1,0 +1,45 @@
+@import '/src/styles/globals.scss';
+
+.details-box{
+  position: relative;
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &-content{
+    position: absolute;
+    bottom: $spacing * 2;
+    left: $spacing * 2;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.5);
+    width: calc(100% - $spacing * 4);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: $radius;
+    transition: all 500ms;
+    cursor: pointer;
+  }
+
+  &-favBtn{
+    position: absolute;
+    top: $spacing;
+    right: $spacing;
+    padding: $spacing * 0.5;
+    background:rgba($color: #000000, $alpha: .4);
+    border-radius:50%;
+    cursor: pointer;
+  }
+
+  &:hover{
+    .details-box-content{
+      bottom:0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      padding: 16px;
+      border-radius:0;
+    }
+  }
+}

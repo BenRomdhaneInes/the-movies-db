@@ -7,10 +7,12 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, './dist'),
 		filename: 'index_bundle.js',
+		publicPath:'/'
 	},
 	target: 'web',
 	devServer: {
 		port: '5000',
+		historyApiFallback: true,
 		static: {
 			directory: path.join(__dirname, 'public')
 		},

@@ -1,46 +1,29 @@
-import React, {useEffect, useState} from 'react'
-import Carousel from './carousel'
+import React, {useState} from 'react'
+import {Routes, Route} from "react-router-dom"
+import Home from './home';
 import Navigation from './navigation/navigation'
-function App() {
-  const [genres, setGenres] = useState([])
-  const [movies, setMovies] = useState([])
-  const keyApi = '7687ef84b131c80abb9e63f50ee609f0'
+import DetailsPage from './details-page/details-page'
+import { AppSetting } from '../utils/context'
 
-  const fetchingMovies = () => {
-    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${keyApi}&language=en-US&page=3`)
-    .then(response => response.json())
-    .then(response => {
-      setMovies(response.results)
-    })
+function App() {  
+  const [favList, setFavList] = useState([])
+  const addToFavList = (newId) => {
+    setFavList([...favList, newId])
   }
-  const fetchingGenre = () => {
-    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${keyApi}&language=en-US`)
-    .then(response => response.json())
-    .then(response => setGenres(response.genres.slice(0, 3)))
+  const removeFromFavList = (newId) => {
+    const result = favList.filter(fav => fav !== newId);
+    setFavList(result)
   }
-  useEffect(() => {
-    fetchingMovies()
-    fetchingGenre()
-  }, [])
-
-  const renderCarouselItems = (id) => {
-    return movies.filter(elem => elem.genre_ids.includes(id))
-  }
-
-  console.log('test',movies);
-  
   return (
-    <div className="App">
-      <Navigation/>
-      {genres?.map((genre, index) => {
-        return (
-          <div key={index}>
-            <h2 className="text-primary">{genre.name}</h2>
-            <Carousel items={renderCarouselItems(genre.id)}/>
-          </div>
-        )
-      })}
-    </div>
+    <AppSetting.Provider value={{favList, addToFavList, removeFromFavList}}>
+      <div className="App bg-light3 antialiased">
+        <Navigation/>
+        <Routes> 
+          <Route path="/" element = {<Home />} />
+          <Route path='/details/:itemId' element={<DetailsPage />}/>
+        </Routes>
+      </div>
+    </AppSetting.Provider>
   );
 }
 
